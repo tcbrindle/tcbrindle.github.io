@@ -15,7 +15,7 @@ library solutions he tried.
 This post is meant as a rebuttal, showing that by using the STL *properly* we can get simple, elegant, generic,
 reusable code that *still* performs better than the hand-coded solution.
 
-#The problem
+# The problem
 
 So let's take look at the problem. In [his code](https://gist.github.com/jbarczak/7f9da68ce807bb574c0c),
 Josh takes a reasonably large (~20MB) text file, splits it up into tokens, and then copies those
@@ -74,7 +74,7 @@ Now I don't want to pick on Josh, because this code works, and it's faster than 
 But... well, let's just say it's not a style of code I would enjoy working with. Let's see how we can come up
 with something better.
 
-#Evolving a splitting algorithm
+# Evolving a splitting algorithm
 
 First, let's take a step back and look at things from a mile-high view: given an input string `str` and
 a set of delimiters `delim`, how would you describe to someone in plain English how to split the string?
@@ -221,7 +221,7 @@ split(const string& str, const string& delims)
 
 We've only removed 4 lines, but this is already beginning to look much better.
 
-#Enter the iterator
+# Enter the iterator
 
 Up until now, you'll notice that we haven't used iterators, but rather `first` and `second` have been
 integer indices into the string. That was deliberate, because a lot of people seem to be put off by
@@ -339,7 +339,7 @@ split(const std::string& str, const std::string& delims = " ",
 This code is simple enough that we don't even need to add comments. The core of it is the `find_first_of()`
 call, which is easily looked up even if you can't guess what it does from the name. But we can do better yet.
 
-#A more generic tokeniser
+# A more generic tokeniser
 
 It's long been a criticism of those coming to C++ from other languages that there is no `split()` function
 for strings in the standard library. The reason is that doing so in a generic way is pretty tricky. Let's
@@ -425,7 +425,7 @@ the power of the STL. All of which is very nice, but pointless if it isn't fast.
 Yes. Yes it is.
 
 
-#Performance
+# Performance
 
 In order to measure performance, we'll use Josh's original microbenchmark from
 [here](https://gist.github.com/jbarczak/7f9da68ce807bb574c0c), slightly modified to use a timer
@@ -482,7 +482,7 @@ Not only that, but we've done it with just seven statements (using the metric fr
 post), as opposed to 21 for the low-level version. 1.3x the performance with 1/3rd of the code?
 I'll take that any day of the week. *That's* the power of the STL.
 
-#Discussion
+# Discussion
 
 In the original post, Josh presents the "conventional wisdom" as being the following:
 
