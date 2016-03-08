@@ -18,9 +18,9 @@ twitter_username: tristanbrindle
 github_username:  tcbrindle
 
 # Build settings
-#markdown: kramdown
-markdown: redcarpet
-highlighter: pygments
+markdown: kramdown
 
-redcarpet:
-  extensions: ["no_intra_emphasis", "smart", "autolink", "tables", "with_toc_data"]
+kramdown:
+  input: GFM
+  hard_wrap: false
+  syntax_highlighter: rouge
