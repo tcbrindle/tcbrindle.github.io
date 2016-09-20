@@ -155,7 +155,9 @@ auto v = variant<monostate, int>{}; // v is either empty, or contains an int
 
 Such a variant is conceptually the same as an `optional<int>`, except that the latter has a more specialised, friendlier API. This is in much the same way that `pair<int, float>` is conceptually the same as `tuple<int, float>`, except that it provides a more specialised API to directly access the two members.
 
-But here's the thing: `variant<monostate, int&>` [is permitted](http://en.cppreference.com/w/cpp/utility/variant), behaving as if it contained a `std::reference_wrapper<int>`. So why not `optional<int&>`? Such an inconsistency is needless and confusing.
+But here's the thing: `variant<monostate, int&>` [is permitted](http://en.cppreference.com/w/cpp/utility/variant), ~~behaving as if it contained a `std::reference_wrapper<int>`~~. So why not `optional<int&>`? Such an inconsistency is needless and confusing.
+
+*EDIT: [/u/tvaneerd pointed out on Reddit](https://www.reddit.com/r/cpp/comments/53m612/the_case_for_optional_references/d7v5glg) that I was mistaken -- the standard says it's permissible to use *a* reference wrapper, not necessarily `std::reference_wrapper`. I believe my point stands though: if `variant<monostate, T&>` is permitted (and it seems that this is explicitly so), then it is inconsistent to forbid `optional<T&>`.*
 
 # Generic programming #
 
@@ -224,18 +226,11 @@ o2 = o1; // Should we rebind o2, or copy the value?
 
 From what I can gather, this was one of the major points of contention regarding optional references. As the paper makes clear, there are arguments to be made both ways about how it should behave, and it was not obvious as the time the paper was proposed which way `optional` should go.
 
-However, I believe that we should now firmly come down on the side of rebinding. Why? Recall from above that `optional<T>` can be regarded as a special case of `variant<monostate, T>`. So what does `variant<monostate, T&>` do when we assign to it? I don't have an implementation of `std::variant` to hand, but since it permits implementations to store references in a `reference_wrapper`, I believe it must rebind:
+However, I believe that we should now firmly come down on the side of rebinding. Why? Recall from above that `optional<T>` can be regarded as a special case of `variant<monostate, T>`. So what does `variant<monostate, T&>` do when we assign to it? I don't have an implementation of `std::variant` to hand, but since it permits implementations to store references in a `reference_wrapper`, ~~~I believe it must rebind.~~~
 
-```cpp
-int i = 0;
-int j = 1;
+*EDIT: As above, it's been pointed out that I jumped to conclusions. The standard merely says that *a* reference wrapper is permitted, not that this should be `std::reference_wrapper`. It seems the rebind vs copy-through debate may still be up in the air.*
 
-auto v1 = variant<monostate, int&>{i};
-auto v2 = variant<monostate, int&>{j};
-v2 = v1; // v2 now contains a reference to i
-```
-
-So, whether the committee intended it or not, it has made a decision; `variant` rebinds references, and so following the principle of least surprise, `optional` should too. (For what it's worth, this is the [same as `boost::optional` does](http://www.boost.org/doc/libs/1_53_0/libs/optional/doc/html/boost_optional/rebinding_semantics_for_assignment_of_optional_references.html).)
+So, whether the committee intended it or not, it has made a decision; `variant` permits references, and so whatever it does on assignment, `optional` should do too. (For what it's worth, [`boost::optional` rebinds on assignment](http://www.boost.org/doc/libs/1_53_0/libs/optional/doc/html/boost_optional/rebinding_semantics_for_assignment_of_optional_references.html).)
 
 # In summary #
 
