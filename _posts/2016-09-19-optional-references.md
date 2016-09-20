@@ -1,6 +1,6 @@
 ---
 layout: post
-title: The case for optional references
+title: The Case for Optional References
 author: Tristan Brindle
 permalink: /posts/optional-references
 comments: true
