@@ -157,7 +157,7 @@ Such a variant is conceptually the same as an `optional<int>`, except that the l
 
 But here's the thing: `variant<monostate, int&>` [is permitted](http://en.cppreference.com/w/cpp/utility/variant), ~~behaving as if it contained a `std::reference_wrapper<int>`~~. So why not `optional<int&>`? Such an inconsistency is needless and confusing.
 
-*EDIT: [/u/tvaneerd pointed out on Reddit](https://www.reddit.com/r/cpp/comments/53m612/the_case_for_optional_references/d7v5glg) that I was mistaken -- the standard says it's permissible to use *a* reference wrapper, not necessarily `std::reference_wrapper`. I believe my point stands though: if `variant<monostate, T&>` is permitted (and it seems that this is explicitly so), then it is inconsistent to forbid `optional<T&>`.*
+*EDIT: [/u/tvaneerd pointed out on Reddit](https://www.reddit.com/r/cpp/comments/53m612/the_case_for_optional_references/d7v5glg) that I was mistaken -- the standard says it's permissible to use **a** reference wrapper, not necessarily `std::reference_wrapper`. I believe my point stands though: if `variant<monostate, T&>` is permitted (and it seems that this is explicitly so), then it is inconsistent to forbid `optional<T&>`.*
 
 # Generic programming #
 
@@ -228,7 +228,7 @@ From what I can gather, this was one of the major points of contention regarding
 
 However, I believe that we should now firmly come down on the side of rebinding. Why? Recall from above that `optional<T>` can be regarded as a special case of `variant<monostate, T>`. So what does `variant<monostate, T&>` do when we assign to it? I don't have an implementation of `std::variant` to hand, but since it permits implementations to store references in a `reference_wrapper`, ~~~I believe it must rebind.~~~
 
-*EDIT: As above, it's been pointed out that I jumped to conclusions. The standard merely says that *a* reference wrapper is permitted, not that this should be `std::reference_wrapper`. It seems the rebind vs copy-through debate may still be up in the air.*
+*EDIT: As above, it's been pointed out that I jumped to conclusions. The standard merely says that **a** reference wrapper is permitted, not that this should be `std::reference_wrapper`. It seems the rebind vs copy-through debate may still be up in the air for `variant`.*
 
 So, whether the committee intended it or not, it has made a decision; `variant` permits references, and so whatever it does on assignment, `optional` should do too. (For what it's worth, [`boost::optional` rebinds on assignment](http://www.boost.org/doc/libs/1_53_0/libs/optional/doc/html/boost_optional/rebinding_semantics_for_assignment_of_optional_references.html).)
 
