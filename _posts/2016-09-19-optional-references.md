@@ -102,7 +102,7 @@ const auto c = optional<int&>{i};
 const auto d = optional<const int&>{i};
 ```
 
-The use of the template syntax (and AAA style) immediately makes it clear whether it is the wrapper or the contained referee that is `const`.  The same cannot be said for `int const * ` versus `int * const`, especially for novices.
+The use of the template syntax (and AAA style) immediately makes it clear whether it is the wrapper or the contained referee that is `const`.  The same cannot be said for `int const *` versus `int * const`, especially for novices.
 
 Again, there is an analogy with `std::array` vs C arrays: have you ever tried to pass a C array by reference to a function? The syntax is odd to say the least:
 
@@ -232,7 +232,7 @@ int j = 1;
 
 auto v1 = variant<monostate, int&>{i};
 auto v2 = variant<monostate, int&>{j};
-v2 = v1; // v2 now contains a reference to j
+v2 = v1; // v2 now contains a reference to i
 ```
 
 So, whether the committee intended it or not, it has made a decision; `variant` rebinds references, and so following the principle of least surprise, `optional` should too. (For what it's worth, this is the [same as `boost::optional` does](http://www.boost.org/doc/libs/1_53_0/libs/optional/doc/html/boost_optional/rebinding_semantics_for_assignment_of_optional_references.html).)
