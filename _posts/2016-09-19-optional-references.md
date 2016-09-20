@@ -3,7 +3,7 @@ layout: post
 title: The case for optional references
 author: Tristan Brindle
 permalink: /posts/optional-references
-comments: false
+comments: true
 tags: C++
 ---
 
