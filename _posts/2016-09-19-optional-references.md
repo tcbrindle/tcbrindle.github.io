@@ -61,7 +61,19 @@ int a = 0;
 optional<int&> b{a};
 ```
 
-Here, we are explicitly saying that `b` is either empty, or a reference to an `int`. We are **expressing our intent** much more clearly.
+Here, we are explicitly saying that `b` is either empty, or a reference to an `int`. The difference becomes more clear when we look at a function signature:
+
+```cpp
+void f(int* pi);
+```
+
+Is `pi` allowed to be `nullptr` here? Without looking at the function documentation, we have no idea. Contrast this with
+
+```cpp
+void g(optional<int&> oi);
+```
+
+Now it is immediately clear that `g()` takes a reference to an `int`, or nothing. We are **expressing our intent** much more clearly.
 
 Bjarne made the point in his keynote (as he has done several times before) that he would like C++ to be more friendly to novice programmers. By introducing `std::array<T>`, the committee removed one of the major uses of raw pointers inherited from C; permitting `optional<T&>` would remove another. It would allow us to say "only use raw pointers in low-level code", and would make the learning and teaching of C++ that little bit easier.
 
