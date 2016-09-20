@@ -241,4 +241,3 @@ So, whether the committee intended it or not, it has made a decision; `variant` 
 
 By allowing optional references, the committee would add a zero-overhead abstraction which would allow C++ programmers to make their intent clearer, to make code easier to read, to reduce the possibility for errors, and make teaching the language easier. It would also remove an unnecesary incompatibility between `optional` and `variant`.
 
-I don't know if there's still time to get this in to C++17, but if anybody who can attend committee meetings feels like proposing it, I'm happy to work on a paper with you...
