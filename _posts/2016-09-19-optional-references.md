@@ -102,7 +102,7 @@ const auto c = optional<int&>{i};
 const auto d = optional<const int&>{i};
 ```
 
-The use of the template syntax (and AAA style) immediately makes it clear whether it is the wrapper or the contained referee that is `const`.  The same cannot be said for `int * const`, especially for novices.
+The use of the template syntax (and AAA style) immediately makes it clear whether it is the wrapper or the contained referee that is `const`.  The same cannot be said for `int const * ` versus `int * const`, especially for novices.
 
 Again, there is an analogy with `std::array` vs C arrays: have you ever tried to pass a C array by reference to a function? The syntax is odd to say the least:
 
