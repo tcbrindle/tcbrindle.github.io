@@ -7,6 +7,8 @@ comments: true
 tags: C++
 ---
 
+**[Note: at the time this post was written (September 2016), the version of `std::variant` proposed for C++17 permitted reference types at alternatives, although the semantics of assignment were not clear. At the November 2016 meeting the C++ commitee chose to resolve this by forbidding `variant<T&>`. This removes the inconsistency with `std::optional<T&>`, and thus the main point I was trying to make in this post. Nonetheless, I'd still like to see `optional<T&>` and I hope we can come to some consensus about the expected assignment semantics at some point in the future.]**
+
 I have a confession to make. Whenever I've come across code that looks like this:
 
 ```cpp
