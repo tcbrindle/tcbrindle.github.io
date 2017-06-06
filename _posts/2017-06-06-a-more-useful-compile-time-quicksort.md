@@ -3,7 +3,7 @@ layout: post
 title: A more useful compile-time quicksort in C++17
 author: Tristan Brindle
 permalink: /posts/a-more-useful-compile-time-quicksort
-comments: false
+comments: true
 tags: C++
 ---
 
