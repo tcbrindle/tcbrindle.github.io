@@ -91,6 +91,8 @@ constexpr auto sort(Range&& range)
 
 There's nothing particularly magical about this code. I put it together in about 10 minutes, and I can't take any credit for it. The quicksort implementation is taken from [this excellent post](https://stackoverflow.com/questions/24650626/how-to-implement-classic-sorting-algorithms-in-modern-c) by user *TemplateRex* on StackOverflow, and the rest is just reimplementations of a few standard library algorithms which are (sadly) not marked as `constexpr` (even in C++17). I copied `partition()` and `find_if_not()` from the sample implementations on [cppreference](https://cppreference.com), and the others are trivial (for random access iterators, anyway).
 
+(**EDIT:** TemplateRex -- again! -- has [pointed out on Reddit](https://www.reddit.com/r/cpp/comments/6fnbfr/a_more_useful_compiletime_quicksort_in_c17/dijml7i/) that `std::advance()`, `next()`, `prev()` and `distance()` *are* in fact `constexpr` in C++17. Unfortunately these changes didn't make it into GCC 7.1 which I used for testing, but at least the code above will get a little bit smaller once compilers/libraries fully implement the new standard.)
+
 The cool thing is that this version is usable both at compile-time:
 
 ```cpp
