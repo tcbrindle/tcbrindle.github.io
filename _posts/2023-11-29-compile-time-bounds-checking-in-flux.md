@@ -50,7 +50,7 @@ error: call to 'flux::static_bounds_check_failed' declared with attribute error:
   304 |                     static_bounds_check_failed();
 ```
 
-<small>[Compiler Explorer](https://flux.godbolt.org/z/qzbG3PKqh)</small>
+<small>[Compiler Explorer](https://flux.godbolt.org/z/P7TfnMYsv)</small>
 
 Of course, this is just a simple example, but GCC (in particular) is able to perform the equivalent "lifting" of errors in some surprisingly complicated sitations. The higher your optimisation settings, the more likely the compiler is going to be able to turn your run-time bounds check into a compile-time one.
 
